@@ -692,12 +692,19 @@ void EntertainingSessionImplementation::doFlourish(int flourishNumber, bool gran
 }
 
 void EntertainingSessionImplementation::addEntertainerBuffDuration(CreatureObject* creature, int performanceType, float duration) {
+	ManagedReference<CreatureObject*> entertainer = this->entertainer.get();
+	
 	int buffDuration = getEntertainerBuffDuration(creature, performanceType);
 
 	buffDuration += duration;
 
-	if (buffDuration > (120.0f + (10.0f / 60.0f)) ) // 2 hrs 10 seconds
-		buffDuration = (120.0f + (10.0f / 60.0f)); // 2hrs 10 seconds
+	float bldBuff = (float) entertainer->getSkillMod("private_buff_mind", SkillModManager::STRUCTURE); //get structer buff rating as a multiplier
+	float bldMod = ((float) bldBuff / 100);
+
+	buffDuration = buffDuration * bldMod;
+
+	if (buffDuration > (240.0f + (10.0f / 60.0f)) ) // 4 hrs 10 seconds
+		buffDuration = (240.0f + (10.0f / 60.0f)); // 4 hrs 10 seconds
 
 	setEntertainerBuffDuration(creature, performanceType, buffDuration);
 }
@@ -719,8 +726,8 @@ void EntertainingSessionImplementation::addEntertainerBuffStrength(CreatureObjec
 	}
 
 	if (maxBuffStrength > 125.0f)
-		maxBuffStrength = 125.0f;	//cap at 125% power
-
+		maxBuffStrength = 125.0f;	//cap player stat contribution at 125% power
+	
 	float factionPerkStrength = entertainer->getSkillMod("private_faction_buff_mind");
 
 	ManagedReference<BuildingObject*> building = cast<BuildingObject*>(entertainer->getRootParent());
@@ -733,6 +740,14 @@ void EntertainingSessionImplementation::addEntertainerBuffStrength(CreatureObjec
 			maxBuffStrength += factionPerkStrength;
 		}
 	}
+	
+	float bldBuff = (float) entertainer->getSkillMod("private_buff_mind", SkillModManager::STRUCTURE); //get structer buff rating as a multiplier
+	float bldMod = ((float) bldBuff / 100);
+	
+	newBuffStrength = newBuffStrength * bldMod; //apply building modifier
+	
+	if (maxBuffStrength > 250.0f)//recap the buff strength at double max for structure bonus
+		maxBuffStrength = 250.0f;
 
 	//add xp based on % added to buff strength
 	if (newBuffStrength  < maxBuffStrength) {
@@ -907,6 +922,10 @@ void EntertainingSessionImplementation::activateEntertainerBuff(CreatureObject* 
 
 			Locker locker2(willBuff);
 			creature->addBuff(willBuff);
+			
+			Locker locker3(mindBuff);
+			creature->addBuff(mindBuff);
+			
 			break;
 		}
 		case PerformanceType::DANCE:
@@ -917,8 +936,16 @@ void EntertainingSessionImplementation::activateEntertainerBuff(CreatureObject* 
 				return;
 			ManagedReference<PerformanceBuff*> mindBuff = new PerformanceBuff(creature, mindBuffCRC, buffStrength, buffDuration * 60, PerformanceBuffType::DANCE_MIND);
 
-			Locker locker(mindBuff);
+			Locker locker(focusBuff);
+			creature->addBuff(focusBuff);
+			locker.release();
+
+			Locker locker2(willBuff);
+			creature->addBuff(willBuff);
+			
+			Locker locker3(mindBuff);
 			creature->addBuff(mindBuff);
+			
 			break;
 		}
 		}
