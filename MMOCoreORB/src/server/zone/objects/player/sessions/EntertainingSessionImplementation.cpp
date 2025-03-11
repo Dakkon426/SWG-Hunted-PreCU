@@ -698,7 +698,7 @@ void EntertainingSessionImplementation::addEntertainerBuffDuration(CreatureObjec
 
 	buffDuration += duration;
 
-	float bldBuff = (float) entertainer->getSkillMod("private_buff_mind", SkillModManager::STRUCTURE); //get structure buff rating as a multiplier
+	float bldBuff = (float) entertainer->getSkillMod("private_buff_mind"); //get structure buff rating as a multiplier
 	float bldMod = ((float) bldBuff / 100);
 
 	buffDuration = buffDuration * bldMod;
@@ -741,7 +741,7 @@ void EntertainingSessionImplementation::addEntertainerBuffStrength(CreatureObjec
 		}
 	}
 	
-	float bldBuff = (float) entertainer->getSkillMod("private_buff_mind", SkillModManager::STRUCTURE); //get structer buff rating as a multiplier
+	float bldBuff = (float) entertainer->getSkillMod("private_buff_mind"); //get structer buff rating as a multiplier
 	float bldMod = ((float) bldBuff / 100);
 	
 	newBuffStrength = newBuffStrength * bldMod; //apply building modifier
