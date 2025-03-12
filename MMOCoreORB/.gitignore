@@ -29,6 +29,8 @@ build_temp
 html
 latex
 log
+!MMOCoreORB/utils/engine3/MMOEngine/src/engine/log/
+!MMOCoreORB/utils/engine3/MMOEngine/src/engine/log/**
 src/Makefile
 src/server/chat/Makefile
 src/server/conf/Makefile
