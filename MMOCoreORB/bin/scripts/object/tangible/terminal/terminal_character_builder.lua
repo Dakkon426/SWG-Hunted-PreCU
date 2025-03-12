@@ -3007,28 +3007,19 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 			},
 			"Unlearn All Skills", "unlearn_all_skills",
 			"Cleanse Character", "cleanse_character",
-			"Enhance Character", "enhance_character",
-			"Jedi",
-			{
+			--"Enhance Character", "enhance_character",
+			--"Jedi",
+			--{
 				--"Unlock Jedi Initiate", "unlock_jedi_initiate",
-				"Unlock FRS Light Side", "frs_light_side",
-				"Unlock FRS Dark Side", "frs_dark_side"
-			},
+				--"Unlock FRS Light Side", "frs_light_side",
+				--"Unlock FRS Dark Side", "frs_dark_side"
+			--},
 			"Fill Force Bar", "fill_force_bar",
 			"Drain Force Bar", "drain_force_bar",
 			"Reset Buffs", "reset_buffs",
 			"Learn Languages", "language",
 			"Credits", "credits",
-			"Apply ALL DoTs", "apply_all_dots",
-			"Apply Poison DOT", "apply_poison_dot",
-			"Apply Bleed DOT", "apply_bleed_dot",
-			"Apply Disease DOT", "apply_disease_dot",
-			"Apply Health Disease DOT", "apply_disease_dot_health",
-			"Apply Action Disease DOT", "apply_disease_dot_action",
-			"Apply Mind Disease DOT", "apply_disease_dot_mind",
-			"Apply Fire DOT", "apply_fire_dot",
-			"Clear DOTs", "clear_dots",
-			"Max XP", "max_xp",
+			--"Max XP", "max_xp",
 			"Become Glowy", "become_glowy",
 			"Faction Points",
 			{
@@ -3038,11 +3029,11 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 		},
 		"Items",
 		{
-			"Jedi Items",
-			{
-				"Color Crystal", "color_crystals",
-				"Krayt Pearl", "krayt_pearls"
-			},
+			--"Jedi Items",
+			--{
+			--	"Color Crystal", "color_crystals",
+			--	"Krayt Pearl", "krayt_pearls"
+			--},
 			--"Attachments",
 			--{
 			--	"Armor Attachment", "object/tangible/gem/armor.iff",
@@ -3190,7 +3181,7 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 			"Pikatta Pie", "object/tangible/food/crafted/dessert_pikatta_pie.iff",
 			--"Pkneb", "object/tangible/food/crafted/dessert_pkneb.iff",
 			--"Puffcake", "object/tangible/food/crafted/dessert_puffcake.iff",
-			--"Pyollian Cake", "object/tangible/food/crafted/dessert_pyollian_cake.iff",
+			"Pyollian Cake", "object/tangible/food/crafted/dessert_pyollian_cake.iff",
 			--"Ryshcate", "object/tangible/food/crafted/dessert_ryshcate.iff",
 			--"Smugglers Delight", "object/tangible/food/crafted/dessert_smugglers_delight.iff",
 			--"Sweesonberry Rolls", "object/tangible/food/crafted/dessert_sweesonberry_rolls.iff",
@@ -3248,7 +3239,7 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 			--"Angerian Fishak Surprise", "object/tangible/food/crafted/drink_angerian_fishak_surprise.iff",
 			--"Antakarian Fire Dancer", "object/tangible/food/crafted/drink_antakarian_fire_dancer.iff",
 			--"Bantha Blaster", "object/tangible/food/crafted/drink_bantha_blaster.iff",
-			--"Bespin Port", "object/tangible/food/crafted/drink_bespin_port.iff",
+			"Bespin Port", "object/tangible/food/crafted/drink_bespin_port.iff",
 			"Blue Milk", "object/tangible/food/crafted/drink_blue_milk.iff",
 			--"Breath of Heaven", "object/tangible/food/crafted/drink_breath_of_heaven.iff",
 			--"Caf", "object/tangible/food/crafted/drink_caf.iff",

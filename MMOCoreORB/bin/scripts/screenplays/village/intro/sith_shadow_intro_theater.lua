@@ -9,8 +9,8 @@ SithShadowIntroTheater = GoToTheater:new {
 	-- Task properties
 	taskName = "SithShadowIntroTheater",
 	-- GoToTheater properties
-	minimumDistance = 500,
-	maximumDistance = 1036,
+	minimumDistance = 1024,
+	maximumDistance = 1536,
 	theater = {
 		{ template = "object/tangible/furniture/all/frn_all_light_lamp_table_s03.iff", xDiff =0.52, zDiff = 1.14, yDiff = -3.37, heading = 0 },
 		{ template = "object/tangible/camp/camp_crate_s1.iff", xDiff =-3.78,zDiff = 0, yDiff = 0.91, heading = -18.91 },

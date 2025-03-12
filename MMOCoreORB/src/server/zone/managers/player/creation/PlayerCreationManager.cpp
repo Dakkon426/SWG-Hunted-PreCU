@@ -36,8 +36,8 @@ PlayerCreationManager::PlayerCreationManager() : Logger("PlayerCreationManager")
 	professionDefaultsInfo.setNoDuplicateInsertPlan();
 	hairStyleInfo.setNoDuplicateInsertPlan();
 
-	startingCash = 100;
-	startingBank = 1000;
+	startingCash = 1000;
+	startingBank = 10000;
 
 	freeGodMode = false;
 
@@ -317,10 +317,10 @@ bool PlayerCreationManager::createCharacter(ClientCreateCharacterCallback* callb
 	TemplateManager* templateManager = TemplateManager::instance();
 
 	auto client = callback->getClient();
-	auto maxchars = ConfigManager::instance()->getInt("Core3.PlayerCreationManager.MaxCharactersPerGalaxy", 4);
+	auto maxchars = ConfigManager::instance()->getInt("Core3.PlayerCreationManager.MaxCharactersPerGalaxy", 10);
 
 	if (client->getCharacterCount(zoneServer.get()->getGalaxyID()) >= maxchars) {
-		ErrorMessage* errMsg = new ErrorMessage("Create Error", "You are limited to 4 characters per galaxy.", 0x0);
+		ErrorMessage* errMsg = new ErrorMessage("Create Error", "You are limited to 10 characters per galaxy.", 0x0);
 		client->sendMessage(errMsg);
 
 		return false;
@@ -361,8 +361,9 @@ bool PlayerCreationManager::createCharacter(ClientCreateCharacterCallback* callb
 	String profession, customization, hairTemplate, hairCustomization;
 	callback->getSkill(profession);
 
-	if (profession.contains("jedi"))
-		profession = "crafting_artisan";
+
+	/*if (profession.contains("jedi"))
+		profession = "crafting_artisan";*/
 
 	callback->getCustomizationString(customization);
 	callback->getHairObject(hairTemplate);
@@ -407,6 +408,15 @@ bool PlayerCreationManager::createCharacter(ClientCreateCharacterCallback* callb
 	}
 
 	ManagedReference<PlayerObject*> ghost = playerCreature->getPlayerObject();
+
+
+    	if (profession.contains("jedi"))
+            if (ghost != nullptr) {
+            	ghost->setJediState(2);
+            	ghost->addHologrindProfession(0);
+            	// Award force_title_jedi_rank_02 skill
+            	SkillManager::instance()->awardSkill("force_title_jedi_rank_02", playerCreature, false, true, true);
+            }
 
 	if (ghost != nullptr) {
 		//Set skillpoints before adding any skills.
@@ -462,7 +472,7 @@ bool PlayerCreationManager::createCharacter(ClientCreateCharacterCallback* callb
 
 							Time timeVal(sec);
 
-							if (timeVal.miliDifference() < 30) {
+							if (timeVal.miliDifference() < 0000000) {
 								ErrorMessage* errMsg = new ErrorMessage("Create Error", "You are only permitted to create one character per hour. Repeat attempts prior to 1 hour elapsing will reset the timer.", 0x0);
 								client->sendMessage(errMsg);
 
