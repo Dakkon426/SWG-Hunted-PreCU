@@ -12,8 +12,8 @@ maintenanceInterval = 604800000 -- 1 day
 --requestDemotionDuration = 604800000 -- 7 days
 --voteChallengeDuration = 604800000 -- 7 days
 
-requestDemotionDuration = 604800000 -- 5 min -- test
-voteChallengeDuration = 604800000 -- 5 min -- test
+requestDemotionDuration = 100 -- 5 min -- test
+voteChallengeDuration = 100 -- 5 min -- test
 
 arenaOpenInterval = 5400000 -- 90 mins
 arenaClosedInterval = 108000000 -- 30 hours
