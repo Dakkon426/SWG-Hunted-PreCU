@@ -59,6 +59,9 @@ groupExpMultiplier = 10
 --Sets a global experience multiplier
 globalExpMultiplier = 8
 
+--Sets a global FRS experience multiplier
+FRSExpMultiplier = 10
+
 --Sets the base number of control devices of each type that a player can have in their datapad at once
 --For creature pets, A Creature Handler will have the base number + their stored pets skill mod as limit
 baseStoredCreaturePets = 5
