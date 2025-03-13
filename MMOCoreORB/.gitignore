@@ -56,5 +56,6 @@ compile_commands.json
 !utils/engine3/MMOEngine/src/testsuite3/**
 !utils/googletest-release-1.13.0/
 !utils/googletest-release-1.13.0/**
-*test*
+!MMOCoreORB/bin/scripts/
+!MMOCoreORB/bin/scripts/**
 !*/tests/
