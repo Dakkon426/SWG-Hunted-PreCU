@@ -22,7 +22,7 @@ baseMaintCost = 0 --100
 requestDemotionCost = 20000000 --2000
 voteChallengeCost = 20000000 --1000
 
-maxPetitioners = 100000
+maxPetitioners = 100
 maxChallenges = 20
 missedVotePenalty = 100 --100 -- FRS XP
 
