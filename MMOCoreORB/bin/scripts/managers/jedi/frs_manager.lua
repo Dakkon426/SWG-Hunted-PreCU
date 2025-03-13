@@ -19,8 +19,8 @@ arenaChallengeCooldown = 90000000 -- 25 hours
 
 -- Costs are in FRS experience
 baseMaintCost = 0 --100
-requestDemotionCost = 20000000 --2000
-voteChallengeCost = 20000000 --1000
+requestDemotionCost = 2000 --2000
+voteChallengeCost = 1000 --1000
 
 maxPetitioners = 100
 maxChallenges = 20
