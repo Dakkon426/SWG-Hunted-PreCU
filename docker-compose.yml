@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/app.Dockerfile
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp=unconfined
+    volumes:
+      - .:/app
+      - /host/path/to/trefiles:/trefiles
+    ports:
+      - 44419:44419
+      - 44455:44455
+      - 44453:44453/udp
+      - 44462:44462/udp
+      - 44463:44463/udp
+    depends_on:
+      swg-db:
+        condition: service_healthy
+    networks:
+      - swgnetwork
+
+  swg-db:
+    build:
+      context: .
+      dockerfile: docker/db.Dockerfile
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root --password=$$MYSQL_ROOT_PASSWORD"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+    ports:
+      - "3306:3306"
+    volumes:
+      - swg-db-data:/var/lib/mysql
+    networks:
+      - swgnetwork
+
+volumes:
+  swg-db-data:
+
+networks:
+  swgnetwork:
+    driver: bridge

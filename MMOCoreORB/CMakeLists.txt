@@ -33,8 +33,8 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 	message(FATAL_ERROR "GCC version must be at least 5.4!")
     endif()
 elseif (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 16)
-        message(FATAL_ERROR "Clang version must be at least 16!")
+    if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 10)
+        message(FATAL_ERROR "Clang version must be at least 10!")
     endif()
 elseif (CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
     if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 19.10)
@@ -212,16 +212,16 @@ endif(IDL_NOPRELOCKS)
 
 # Include googlemock and googletest
 if(COMPILE_TESTS)
-	set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+	#set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
-    add_subdirectory(utils/googletest-release-1.13.0)
+    #add_subdirectory(utils/googletest-release-1.13.0)
 
-    include_directories(${CMAKE_SOURCE_DIR}/utils/googletest-release-1.13.0/googletest/include)
-    include_directories(${CMAKE_SOURCE_DIR}/utils/googletest-release-1.13.0/googlemock/include)
+    #include_directories(${CMAKE_SOURCE_DIR}/utils/googletest-release-1.13.0/googletest/include)
+    #include_directories(${CMAKE_SOURCE_DIR}/utils/googletest-release-1.13.0/googlemock/include)
 
-	enable_testing()
+	#enable_testing()
 
-    add_definitions(-DCOMPILE_CORE3_TESTS)
+    #add_definitions(-DCOMPILE_CORE3_TESTS)
 else(COMPILE_TESTS)
     set(IDL_DIRECTIVES ${IDL_DIRECTIVES} -nomocks)
 endif(COMPILE_TESTS)
