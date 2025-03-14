@@ -5391,6 +5391,7 @@ stringFiles[85].addEntry("cert_onehandlightsaber_gen1", "This certification allo
 stringFiles[85].addEntry("cert_onehandlightsaber_gen2", "This certification allows you to wield a Second Generation One-handed Lightsaber.");
 stringFiles[85].addEntry("cert_onehandlightsaber_gen3", "This certification allows you to wield a Third Generation One-handed Lightsaber.");
 stringFiles[85].addEntry("cert_onehandlightsaber_gen4", "This certification allows you to wield a Fourth Generation One-handed Lightsaber.");
+stringFiles[85].addEntry("cert_onehandlightsaber_gen5", "This certification allows you to wield a Fifth Generation One-handed Lightsaber.");
 stringFiles[85].addEntry("cert_onehandlightsaber_training", "This certification allows you to wield a One-handed Training Lightsaber.");
 stringFiles[85].addEntry("cert_ordnance_level1", "Level 1 Starship Equipment Certification");
 stringFiles[85].addEntry("cert_ordnance_level2", "Level 2 Starship Equipment Certification");
@@ -5423,6 +5424,7 @@ stringFiles[85].addEntry("cert_polearmlightsaber_gen1", "This certification allo
 stringFiles[85].addEntry("cert_polearmlightsaber_gen2", "This certification allows you to wield a Second Generation Polearm Lightsaber.");
 stringFiles[85].addEntry("cert_polearmlightsaber_gen3", "This certification allows you to wield a Third Generation Polearm Lightsaber.");
 stringFiles[85].addEntry("cert_polearmlightsaber_gen4", "This certification allows you to wield a Fourth Generation Polearm Lightsaber.");
+stringFiles[85].addEntry("cert_polearmlightsaber_gen5", "This certification allows you to wield a Fourth Generation Polearm Lightsaber.");
 stringFiles[85].addEntry("cert_rifle_acid", "This certification allows you to wield a Heavy Acid Rifle.");
 stringFiles[85].addEntry("cert_rifle_acid_beam", "This certification allows you to wield a Heavy Acid Rifle.");
 stringFiles[85].addEntry("cert_rifle_beam", "This certification allows you to wield a Beam Rifle.");
@@ -5496,6 +5498,7 @@ stringFiles[85].addEntry("cert_twohandlightsaber_gen1", "This certification allo
 stringFiles[85].addEntry("cert_twohandlightsaber_gen2", "This certification allows you to wield a Second Generation Two-handed Lightsaber.");
 stringFiles[85].addEntry("cert_twohandlightsaber_gen3", "This certification allows you to wield a Third Generation Two-handed Lightsaber.");
 stringFiles[85].addEntry("cert_twohandlightsaber_gen4", "This certification allows you to wield a Fourth Generation Two-handed Lightsaber.");
+stringFiles[85].addEntry("cert_twohandlightsaber_gen5", "This certification allows you to wield a Fifth Generation Two-handed Lightsaber.");
 stringFiles[85].addEntry("cert_vibroknuckler", "This certification allows you to wield a Vibroknuckler.");
 stringFiles[85].addEntry("channelforce", "/channelForce: This ability allows a Jedi to quickly convert some of his natural life energy into usable Force power.");
 stringFiles[85].addEntry("chargeshot1", "/chargeshot1 <target>: This ranged attack can knock a target down.");
@@ -6800,6 +6803,7 @@ stringFiles[87].addEntry("cert_onehandlightsaber_gen1", "One-handed Lightsaber G
 stringFiles[87].addEntry("cert_onehandlightsaber_gen2", "One-handed Lightsaber Generation 2 Certification");
 stringFiles[87].addEntry("cert_onehandlightsaber_gen3", "One-handed Lightsaber Generation 3 Certification");
 stringFiles[87].addEntry("cert_onehandlightsaber_gen4", "One-handed Lightsaber Generation 4 Certification");
+stringFiles[87].addEntry("cert_onehandlightsaber_gen5", "One-handed Lightsaber Generation 5 Certification");
 stringFiles[87].addEntry("cert_onehandlightsaber_training", "One-handed Training Lightsaber Certification");
 stringFiles[87].addEntry("cert_ordnance_level1", "Level 1 Ship Equipment Certification");
 stringFiles[87].addEntry("cert_ordnance_level2", "Level 2 Ship Equipment Certification");
@@ -6832,6 +6836,7 @@ stringFiles[87].addEntry("cert_polearmlightsaber_gen1", "Double-Bladed Lightsabe
 stringFiles[87].addEntry("cert_polearmlightsaber_gen2", "Double-Bladed Lightsaber Generation 2 Certification");
 stringFiles[87].addEntry("cert_polearmlightsaber_gen3", "Double-Bladed Lightsaber Generation 3 Certification");
 stringFiles[87].addEntry("cert_polearmlightsaber_gen4", "Double-Bladed Lightsaber Generation 4 Certification");
+stringFiles[87].addEntry("cert_polearmlightsaber_gen5", "Double-Bladed Lightsaber Generation 5 Certification");
 stringFiles[87].addEntry("cert_rifle_acid", "Heavy Acid Rifle Certification");
 stringFiles[87].addEntry("cert_rifle_acid_beam", "Heavy Acid Rifle Certification");
 stringFiles[87].addEntry("cert_rifle_beam", "Beam Rifle Certification");
@@ -6905,6 +6910,7 @@ stringFiles[87].addEntry("cert_twohandlightsaber_gen1", "Two-handed Lightsaber G
 stringFiles[87].addEntry("cert_twohandlightsaber_gen2", "Two-handed Lightsaber Generation 2 Certification");
 stringFiles[87].addEntry("cert_twohandlightsaber_gen3", "Two-handed Lightsaber Generation 3 Certification");
 stringFiles[87].addEntry("cert_twohandlightsaber_gen4", "Two-handed Lightsaber Generation 4 Certification");
+stringFiles[87].addEntry("cert_twohandlightsaber_gen5", "Two-handed Lightsaber Generation 5 Certification");
 stringFiles[87].addEntry("cert_vibroknuckler", "Vibroknuckler certification");
 stringFiles[87].addEntry("channelforce", "Channel Force");
 stringFiles[87].addEntry("chargeshot1", "Charge Shot 1");
