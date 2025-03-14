@@ -71,6 +71,19 @@ KnockdownFireCommand = {
 	  )
 	},
 
+	dotEffects = {
+		DotEffect( 
+		  BLEEDING, 
+		  { "resistance_bleeding", "bleed_resist" },
+		  ACTION,
+		  true,
+		  0,
+		  100,
+		  60, 
+		  60
+		)
+	  },
+
 	animation = "fire_3_single", 
 	animType = GENERATE_RANGED,
 
