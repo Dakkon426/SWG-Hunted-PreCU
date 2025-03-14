@@ -73,7 +73,7 @@ KnockdownFireCommand = {
 
 	dotEffects = {
 		DotEffect( 
-		  BLEEDING, 
+		  ONFIRE, 
 		  { "resistance_bleeding", "bleed_resist" },
 		  ACTION,
 		  true,
