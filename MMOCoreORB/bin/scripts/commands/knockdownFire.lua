@@ -70,7 +70,7 @@ KnockdownFireCommand = {
 		0 
 	  )
 	},
-
+	
 	dotEffects = {
 		DotEffect( 
 		  ONFIRE, 
@@ -83,7 +83,7 @@ KnockdownFireCommand = {
 		  60
 		)
 	  },
-
+	
 	animation = "fire_3_single", 
 	animType = GENERATE_RANGED,
 
@@ -95,4 +95,3 @@ KnockdownFireCommand = {
 }
 
 AddCommand(KnockdownFireCommand)
-
