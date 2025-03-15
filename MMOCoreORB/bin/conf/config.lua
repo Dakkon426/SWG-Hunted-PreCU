@@ -149,7 +149,6 @@ Core3 = {
 	------TRE config------
 	TrePath = "/root/Downloads/SWG-origins-precu/SWGEmu",
 	TreFiles = {
-		"gen5.tre",
 		"aftermath_1.tre",
 		"aftermath_house.tre",
 		"aftermath_NGE.tre",
