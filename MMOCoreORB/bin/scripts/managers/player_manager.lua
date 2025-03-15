@@ -59,6 +59,16 @@ groupExpMultiplier = 10
 --Sets a global experience multiplier
 globalExpMultiplier = 8
 
+-- Note: jedi will ignore globalExpMultiplier so if you want to adjust, change this value
+jediExpMultiplier = 4
+
+--Sets a global FRS experience multiplier
+FRSExpMultiplier = 10
+
+-- Sets crafting and ent XP multipliers
+craftExpMultiplier = 16
+entExpMultiplier = 16
+
 --Sets the base number of control devices of each type that a player can have in their datapad at once
 --For creature pets, A Creature Handler will have the base number + their stored pets skill mod as limit
 baseStoredCreaturePets = 5
@@ -70,9 +80,10 @@ baseStoredShips = 5
 -----------------------------------
 --VETERAN REWARDS CONFIG
 -----------------------------------
-veteranRewardMilestones = {90, 180, 270, 360, 450, 540, 630, 720, 810, 900, 990, 1080} --days, must be sorted low to high
+-----------------------------------
+veteranRewardMilestones = {1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 150, 180, 210, 240, 270, 300, 330, 360} --days, must be sorted low to high
 
-veteranRewardAdditionalMilestones = 360 --frequency, in days, of additional milestones (beyond the established ones)
+veteranRewardAdditionalMilestones = 1 --frequency, in days, of additional milestones (beyond the established ones)
 
 veteranRewards = {
 	-- 90 Day Rewards

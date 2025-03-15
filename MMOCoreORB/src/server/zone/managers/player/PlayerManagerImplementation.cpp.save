@@ -1897,300 +1897,6 @@ void PlayerManagerImplementation::ejectPlayerFromBuilding(CreatureObject* player
 	}
 }
 
-/*void PlayerManagerImplementation::disseminateExperience(TangibleObject* destructedObject, ThreatMap* threatMap, SynchronizedVector<ManagedReference<CreatureObject*> >* spawnedCreatures,Zone* lairZone) {
-	uint32 totalDamage = threatMap->getTotalDamage();
-
-	if (totalDamage == 0) {
-		threatMap->removeAll();
-		return;
-	}
-
-	VectorMap<ManagedReference<CreatureObject*>, int> slExperience;
-	slExperience.setAllowOverwriteInsertPlan();
-	slExperience.setNullValue(0);
-
-	float gcwBonus = 1.0f;
-	uint32 winningFaction = -1;
-	int baseXp = 0;
-
-	Zone* zone = lairZone;
-
-	if (zone == nullptr) {
-		zone = destructedObject->getZone();
-	}
-
-	if (zone != nullptr) {
-		GCWManager* gcwMan = zone->getGCWManager();
-
-		if (gcwMan != nullptr) {
-			gcwBonus += (gcwMan->getGCWXPBonus() / 100.0f);
-			winningFaction = gcwMan->getWinningFaction();
-		}
-	}
-
-	if (!destructedObject->isCreatureObject() && spawnedCreatures != nullptr) {
-		ManagedReference<AiAgent*> ai = nullptr;
-
-		for (int i = 0; i < spawnedCreatures->size(); i++) {
-			ai = cast<AiAgent*>(spawnedCreatures->get(i).get());
-
-			if (ai != nullptr) {
-				Creature* creature = cast<Creature*>(ai.get());
-
-				if (creature != nullptr && creature->isBaby())
-					continue;
-				else
-					break;
-			}
-		}
-
-		if (ai != nullptr)
-			baseXp = ai->getBaseXp();
-
-	} else {
-		ManagedReference<AiAgent*> ai = cast<AiAgent*>(destructedObject);
-
-		if (ai != nullptr)
-			baseXp = ai->getBaseXp();
-	}
-
-	Vector<uint64> playerList;
-
-	for (int i = 0; i < threatMap->size(); ++i) {
-		TangibleObject* attacker = threatMap->elementAt(i).getKey();
-
-		if (attacker == nullptr)
-			continue;
-
-		if (attacker->isPet()) {
-			CreatureObject* attackerCreo = attacker->asCreatureObject();
-
-			if (attackerCreo == nullptr)
-				continue;
-
-			CreatureObject* owner = attackerCreo->getLinkedCreature().get();
-
-			if (owner == nullptr)
-				continue;
-
-			uint64 attackerID = owner->getObjectID();
-
-			if (!playerList.contains(attackerID))
-				playerList.add(attackerID);
-		} else {
-			if (!attacker->isPlayerCreature())
-				continue;
-
-			uint64 attackerID = attacker->getObjectID();
-
-			if (!playerList.contains(attackerID))
-				playerList.add(attackerID);
-		}
-	}
-
-	int playerHitCount = playerList.size();
-
-	for (int i = 0; i < threatMap->size(); ++i) {
-		ThreatMapEntry* entry = &threatMap->elementAt(i).getValue();
-		TangibleObject* attacker = threatMap->elementAt(i).getKey();
-
-		if (entry == nullptr || attacker == nullptr) {
-			continue;
-		}
-
-		if (attacker->isPet()) {
-			if (!attacker->isCreatureObject()) {
-				continue;
-			}
-
-			if (destructedObject->isAiAgent() && destructedObject->asAiAgent()->isEventMob())
-				continue;
-
-			CreatureObject* attackerCreo = attacker->asCreatureObject();
-
-			if (attackerCreo == nullptr) {
-				continue;
-			}
-
-			PetControlDevice* pcd = attackerCreo->getControlDevice().get().castTo<PetControlDevice*>();
-
-			// only creature pets will award exp, so discard anything else
-			if (pcd == nullptr || pcd->getPetType() != PetManager::CREATUREPET) {
-				continue;
-			}
-
-			CreatureObject* owner = attackerCreo->getLinkedCreature().get();
-
-			if (owner == nullptr || !owner->isPlayerCreature()) {
-				continue;
-			}
-
-			Locker crossLocker(owner, destructedObject);
-
-			PlayerObject* ownerGhost = owner->getPlayerObject();
-
-			if (ownerGhost == nullptr || !owner->hasSkill("outdoors_creaturehandler_novice") || !destructedObject->isInRange(owner, 80)) {
-				continue;
-			}
-
-			TransactionLog trx(owner, destructedObject, TrxCode::COMBATSTATS, attackerCreo);
-			trx.addState("combatIsPet", true);
-			trx.addState("combatTotalDamage", entry->getTotalDamage());
-			trx.addState("combatTotalNonAggroDamage", entry->getNonAggroDamage());
-			trx.addState("combatTotalHeal", entry->getHeal());
-			trx.addState("combatTotalSeconds", entry->getDurationSeconds());
-			trx.addState("combatDPS", entry->getDPS());
-			trx.addState("combatPlayerLevel", calculatePlayerLevel(owner));
-			trx.addState("combatPetLevel", calculatePlayerLevel(attackerCreo));
-
-			int totalPets = 1;
-
-			for (int i = 0; i < ownerGhost->getActivePetsSize(); i++) {
-				ManagedReference<AiAgent*> object = ownerGhost->getActivePet(i);
-
-				if (object != nullptr && object->isCreature()) {
-					if (object == attacker)
-						continue;
-
-					PetControlDevice* petControlDevice = object->getControlDevice().get().castTo<PetControlDevice*>();
-					if (petControlDevice != nullptr && petControlDevice->getPetType() == PetManager::CREATUREPET)
-						totalPets++;
-				}
-			}
-
-			// TODO: Find a more correct CH xp formula
-			float levelRatio = (float)destructedObject->getLevel() / (float)attacker->getLevel();
-
-			float xpAmount = levelRatio * 500.f;
-
-			if (levelRatio <= 0.5) {
-				xpAmount = 1;
-			} else {
-				xpAmount = Math::min(xpAmount, (float)attacker->getLevel() * 50.f);
-				xpAmount /= totalPets;
-
-				if (winningFaction != Factions::FACTIONNEUTRAL && winningFaction == attacker->getFaction())
-					xpAmount *= gcwBonus;
-			}
-
-			trx.addState("combatTotalPets", totalPets);
-
-			awardExperience(owner, "creaturehandler", xpAmount);
-		} else if (attacker->isPlayerCreature()) {
-			if (!(attacker->getZone() == zone && destructedObject->isInRangeZoneless(attacker, 80))) {
-				continue;
-			}
-
-			CreatureObject* attackerCreo = attacker->asCreatureObject();
-
-			if (attackerCreo == nullptr) {
-				continue;
-			}
-
-			ManagedReference<GroupObject*> group = attackerCreo->getGroup();
-
-			uint32 combatXp = 0;
-
-			Locker crossLocker(attackerCreo, destructedObject);
-
-			TransactionLog trx(attackerCreo, destructedObject, TrxCode::COMBATSTATS);
-			trx.addState("combatIsPet", false);
-			trx.addState("combatTotalDamage", entry->getTotalDamage());
-			trx.addState("combatTotalNonAggroDamage", entry->getNonAggroDamage());
-			trx.addState("combatTotalHeal", entry->getHeal());
-			trx.addState("combatTotalSeconds", entry->getDurationSeconds());
-			trx.addState("combatDPS", entry->getDPS());
-			trx.addState("combatPlayerLevel", calculatePlayerLevel(attackerCreo));
-
-			if (group != nullptr) {
-				trx.addState("combatGroupID", group->getObjectID());
-				trx.addState("combatGroupSize", group->getGroupSize());
-				trx.addState("combatGroupLevel", group->getGroupLevel());
-				trx.addState("combatGroupFactionPetLevel", group->getFactionPetLevel());
-			}
-
-			for (int j = 0; j < entry->size(); ++j) {
-				uint32 damage = entry->elementAt(j).getValue();
-				String xpType = entry->elementAt(j).getKey();
-
-				float xpAmount = baseXp;
-				int playerLevel = calculatePlayerLevel(attackerCreo, xpType);
-
-				//xpAmount *= (float) damage / totalDamage;
-
-				//Cap xp based on level
-				//xpAmount = Math::min(xpAmount, playerLevel * 300.f);
-
-				//Apply group bonus if in group
-				if (group != nullptr)
-					xpAmount *= groupExpMultiplier;
-
-				if (winningFaction != Factions::FACTIONNEUTRAL && winningFaction == attackerCreo->getFaction())
-					xpAmount *= gcwBonus;
-
-				// Jedi experience doesn't count towards combat experience, and is earned at 20% the rate of normal experience
-				if (xpType != "jedi_general")
-					combatXp += xpAmount;
-				else
-					xpAmount *= 0.9f;
-
-				if (xpType == "dotDMG") { // Prevents XP generated from DoTs from applying to the equiped weapon, but still counts towards combat XP
-					continue;
-				}
-
-				//Award individual expType
-				awardExperience(attackerCreo, xpType, xpAmount);
-			}
-
-			awardExperience(attackerCreo, "combat_general", combatXp, true, 0.1f);
-
-
-			//Check if the group leader is a squad leader
-			if (group == nullptr)
-				continue;
-
-			//Calculate squad leader group size experience @ 10% person + combat experience which is 10% of the variable
-			float squadXp = (combatXp * 0.1f) + (combatXp * 0.1f * group->getGroupSize());
-
-			Vector3 pos(attacker->getWorldPosition());
-
-			crossLocker.release();
-
-			ManagedReference<CreatureObject*> groupLeader = group->getLeader();
-
-			if (groupLeader == nullptr || !groupLeader->isPlayerCreature())
-				continue;
-
-			Locker squadLock(groupLeader, destructedObject);
-
-			trx.addState("squadLeader", groupLeader->getObjectID());
-			trx.addState("squadLeaderDistance", groupLeader->getDistanceTo(attackerCreo));
-
-			//If he is a squad leader, and is in range of this player, then add the combat exp for him to use.
-			//Removed distance check to keep current functionality. Attacker was previously comparing its location to itself
-			if (groupLeader->hasSkill("outdoors_squadleader_novice")) {
-				int v = slExperience.get(groupLeader) + squadXp;
-				slExperience.put(groupLeader, v);
-			}
-		}
-	}
-
-	// Send out squad leader experience.
-	for (int i = 0; i < slExperience.size(); ++i) {
-		VectorMapEntry<ManagedReference<CreatureObject*>, int>* entry = &slExperience.elementAt(i);
-		CreatureObject* leader = entry->getKey();
-
-		if (leader == nullptr)
-			continue;
-
-		Locker clock(leader, destructedObject);
-
-		awardExperience(leader, "squadleader", entry->getValue() * 2.f);
-	}
-
-	threatMap->removeAll();
-}*/
-
 void PlayerManagerImplementation::disseminateExperience(TangibleObject* destructedObject, ThreatMap* threatMap, SynchronizedVector<ManagedReference<CreatureObject*> >* spawnedCreatures,Zone* lairZone) {
 	uint32 totalDamage = threatMap->getTotalDamage();
 
@@ -2410,19 +2116,23 @@ void PlayerManagerImplementation::disseminateExperience(TangibleObject* destruct
 				float xpAmount = baseXp;
 				int playerLevel = calculatePlayerLevel(attackerCreo, xpType);
 
-				// Apply group bonus if in group
+				xpAmount *= (float) damage / totalDamage;
+
+				//Cap xp based on level
+				xpAmount = Math::min(xpAmount, playerLevel * 300.f);
+
+				//Apply group bonus if in group
 				if (group != nullptr)
 					xpAmount *= groupExpMultiplier;
 
 				if (winningFaction != Factions::FACTIONNEUTRAL && winningFaction == attackerCreo->getFaction())
 					xpAmount *= gcwBonus;
 
-				// Jedi experience is earned at 20% the rate of normal experience
-				if (xpType == "jedi_general") {
-					xpAmount *= 0.2f;
-				} else {
+				// Jedi experience doesn't count towards combat experience, and is earned at 20% the rate of normal experience
+				if (xpType != "jedi_general")
 					combatXp += xpAmount;
-				}
+				else
+					xpAmount *= 0.9f;
 
 				if (xpType == "dotDMG") { // Prevents XP generated from DoTs from applying to the equiped weapon, but still counts towards combat XP
 					continue;
@@ -2480,6 +2190,8 @@ void PlayerManagerImplementation::disseminateExperience(TangibleObject* destruct
 
 	threatMap->removeAll();
 }
+
+
 
 void PlayerManagerImplementation::disseminateSpaceExperience(ShipAiAgent* destructedObject, ThreatMap* threatMap) {
 	if (destructedObject == nullptr || threatMap == nullptr) {

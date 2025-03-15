@@ -3019,7 +3019,7 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 			"Reset Buffs", "reset_buffs",
 			"Learn Languages", "language",
 			"Credits", "credits",
-			--"Max XP", "max_xp",
+			"Max XP", "max_xp",
 			"Become Glowy", "become_glowy",
 			"Faction Points",
 			{
@@ -3029,11 +3029,11 @@ object_tangible_terminal_terminal_character_builder = object_tangible_terminal_s
 		},
 		"Items",
 		{
-			--"Jedi Items",
-			--{
-			--	"Color Crystal", "color_crystals",
-			--	"Krayt Pearl", "krayt_pearls"
-			--},
+			"Jedi Items",
+			{
+				"Color Crystal", "color_crystals",
+				"Krayt Pearl", "krayt_pearls"
+			},
 			--"Attachments",
 			--{
 			--	"Armor Attachment", "object/tangible/gem/armor.iff",
